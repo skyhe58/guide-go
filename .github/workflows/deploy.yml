@@ -21,6 +21,11 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
+# 让使用 Node.js 20 的 Actions 提前运行于 Node.js 24
+# 参考：https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   # ============================================================
   # 任务 1：Go 代码编译验证
@@ -30,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 检出代码
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: 安装 Go 1.22
         uses: actions/setup-go@v5
@@ -41,9 +46,19 @@ jobs:
       - name: 验证 Go 版本
         run: go version
 
-      # 使用 Go Workspace 编译所有模块
+      # 使用 Go Workspace 遍历编译所有模块
+      # 说明：workspace 根目录无 go.mod，直接 `go build ./...` 会报
+      # "directory prefix . does not contain modules listed in go.work"
+      # 因此遍历 go.work 中每个模块的目录分别编译。
       - name: 编译所有 Go 模块
-        run: go build ./...
+        run: |
+          set -euo pipefail
+          dirs=$(go list -f '{{.Dir}}' -m)
+          for d in $dirs; do
+            echo "::group::go build $d"
+            (cd "$d" && go build ./...)
+            echo "::endgroup::"
+          done
         working-directory: code-examples
 
       # --- 可选步骤 ---
@@ -69,7 +84,7 @@ jobs:
     needs: go-build
     steps:
       - name: 检出代码
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0  # VitePress 需要完整 git 历史以获取最后更新时间
 
