@@ -1,0 +1,45 @@
+# =============================================================================
+# AWS 本地模拟：LocalStack
+# 用于：code-examples/03-microservice/aws/ 模块
+# 启动命令：docker compose -f docker/docker-compose.localstack.yml up -d
+# 停止命令：docker compose -f docker/docker-compose.localstack.yml down
+# =============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # LocalStack — 本地模拟 AWS 云服务
+  # 用于：在本地开发环境中模拟 AWS S3、SQS 等服务，无需真实 AWS 账号
+  # 服务端点：localhost:4566（所有 AWS 服务统一入口）
+  # 管理面板：localhost:4566/_localstack/health（健康检查）
+  # Go 客户端：github.com/aws/aws-sdk-go-v2，配置自定义 endpoint 指向 LocalStack
+  #
+  # 使用示例（AWS CLI）：
+  #   aws --endpoint-url=http://localhost:4566 s3 mb s3://test-bucket
+  #   aws --endpoint-url=http://localhost:4566 sqs create-queue --queue-name test-queue
+  # ---------------------------------------------------------------------------
+  localstack:
+    image: localstack/localstack:3
+    container_name: guide-go-localstack
+    restart: unless-stopped
+    ports:
+      - "4566:4566"
+    environment:
+      # 启用的 AWS 服务（S3 对象存储 + SQS 消息队列）
+      SERVICES: s3,sqs
+      # 默认 AWS 区域
+      DEFAULT_REGION: us-east-1
+      # 调试模式（开发环境开启，生产环境关闭）
+      DEBUG: "0"
+    volumes:
+      - localstack-data:/var/lib/localstack
+      - /var/run/docker.sock:/var/run/docker.sock
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsSL http://localhost:4566/_localstack/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+# 数据卷定义
+volumes:
+  localstack-data:

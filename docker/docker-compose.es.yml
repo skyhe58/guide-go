@@ -1,0 +1,40 @@
+# =============================================================================
+# 搜索引擎：Elasticsearch
+# 用于：code-examples/02-web-data/cache-search/elasticsearch/ 模块
+# 启动命令：docker compose -f docker/docker-compose.es.yml up -d
+# 停止命令：docker compose -f docker/docker-compose.es.yml down
+# =============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # Elasticsearch 全文搜索引擎
+  # 用于：code-examples/02-web-data/cache-search/elasticsearch/ 模块
+  # REST API 地址：localhost:9200，无需认证
+  # Go 客户端：github.com/elastic/go-elasticsearch/v8
+  # ---------------------------------------------------------------------------
+  elasticsearch:
+    image: elasticsearch:8.13.0
+    container_name: guide-go-elasticsearch
+    restart: unless-stopped
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      # 单节点模式，适合本地开发
+      discovery.type: single-node
+      # 关闭安全认证，简化本地开发体验
+      xpack.security.enabled: "false"
+      # JVM 堆内存设置（本地开发建议 512m，生产环境需调大）
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsSL http://localhost:9200/_cluster/health || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+# 数据卷定义
+volumes:
+  elasticsearch-data:

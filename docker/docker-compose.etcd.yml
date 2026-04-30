@@ -1,0 +1,39 @@
+# =============================================================================
+# 服务发现与配置中心：etcd
+# 用于：code-examples/03-microservice/service-governance/etcd/ 模块
+# 启动命令：docker compose -f docker/docker-compose.etcd.yml up -d
+# 停止命令：docker compose -f docker/docker-compose.etcd.yml down
+# =============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # etcd 分布式键值存储
+  # 用于：服务注册与发现、配置中心、分布式锁
+  # 客户端地址：localhost:2379，无需认证
+  # Go 客户端：go.etcd.io/etcd/client/v3
+  # ---------------------------------------------------------------------------
+  etcd:
+    image: bitnami/etcd:3.5
+    container_name: guide-go-etcd
+    restart: unless-stopped
+    ports:
+      - "2379:2379"
+      - "2380:2380"
+    environment:
+      # 允许无认证访问（本地开发环境）
+      ALLOW_NONE_AUTHENTICATION: "yes"
+      # 单节点配置
+      ETCD_ADVERTISE_CLIENT_URLS: http://0.0.0.0:2379
+      ETCD_LISTEN_CLIENT_URLS: http://0.0.0.0:2379
+    volumes:
+      - etcd-data:/bitnami/etcd
+    healthcheck:
+      test: ["CMD-SHELL", "etcdctl endpoint health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+# 数据卷定义
+volumes:
+  etcd-data:

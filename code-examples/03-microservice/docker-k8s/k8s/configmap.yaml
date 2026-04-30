@@ -1,0 +1,102 @@
+# ============================================
+# Kubernetes ConfigMap 配置
+# 存储 Go 应用的非敏感配置数据
+#
+# 部署命令：kubectl apply -f configmap.yaml
+# 查看配置：kubectl describe configmap app-config
+#
+# 使用方式：
+#   1. 环境变量注入（envFrom / env）
+#   2. 文件挂载（volumeMounts）
+#
+# 注意：敏感数据（密码、Token）应使用 Secret，不要放在 ConfigMap 中
+# ============================================
+
+---
+# ============================================
+# 应用配置（通过环境变量注入）
+# 在 Deployment 中通过 envFrom.configMapRef 引用
+# ============================================
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: default
+  labels:
+    app: my-go-app
+data:
+  # 应用基础配置
+  APP_ENV: "production"
+  APP_PORT: "8080"
+  APP_LOG_LEVEL: "info"
+  APP_LOG_FORMAT: "json"
+
+  # 数据库配置（非敏感部分，密码在 Secret 中）
+  DB_HOST: "postgres"
+  DB_PORT: "5432"
+  DB_USER: "postgres"
+  DB_NAME: "myapp"
+  DB_SSLMODE: "disable"
+  DB_MAX_OPEN_CONNS: "25"
+  DB_MAX_IDLE_CONNS: "10"
+  DB_CONN_MAX_LIFETIME: "5m"
+
+  # Redis 配置
+  REDIS_ADDR: "redis:6379"
+  REDIS_DB: "0"
+  REDIS_POOL_SIZE: "10"
+
+  # HTTP 服务器配置
+  HTTP_READ_TIMEOUT: "10s"
+  HTTP_WRITE_TIMEOUT: "30s"
+  HTTP_IDLE_TIMEOUT: "60s"
+  HTTP_SHUTDOWN_TIMEOUT: "15s"
+
+---
+# ============================================
+# 应用配置文件（通过文件挂载注入）
+# 在 Deployment 中通过 volumes + volumeMounts 挂载为文件
+# Go 应用可以用 Viper 读取此配置文件
+# ============================================
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config-file
+  namespace: default
+  labels:
+    app: my-go-app
+data:
+  # 配置文件内容（YAML 格式）
+  # 挂载到容器的 /etc/app/config.yaml
+  config.yaml: |
+    server:
+      port: 8080
+      readTimeout: 10s
+      writeTimeout: 30s
+      idleTimeout: 60s
+      shutdownTimeout: 15s
+
+    database:
+      host: postgres
+      port: 5432
+      user: postgres
+      name: myapp
+      sslmode: disable
+      maxOpenConns: 25
+      maxIdleConns: 10
+      connMaxLifetime: 5m
+
+    redis:
+      addr: redis:6379
+      db: 0
+      poolSize: 10
+
+    log:
+      level: info
+      format: json
+
+    # 限流配置
+    rateLimit:
+      enabled: true
+      requestsPerSecond: 100
+      burst: 200

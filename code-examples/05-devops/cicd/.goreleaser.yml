@@ -1,0 +1,171 @@
+# =============================================================================
+# GoReleaser 配置示例
+# 适用于：Go 项目的自动化发布（多平台交叉编译 + Changelog + Docker 镜像）
+#
+# 使用说明：
+#   goreleaser check                    - 检查配置文件语法
+#   goreleaser release --snapshot --clean - 本地测试（不发布）
+#   goreleaser release --clean           - 正式发布（通常由 CI 执行）
+#
+# 配合 GitHub Actions 使用：
+#   git tag v1.0.0 && git push --tags   - 打 Tag 触发自动发布
+#
+# Go 版本：Go 1.22+
+# 最后验证：2024-12-01
+# =============================================================================
+
+# GoReleaser 配置版本
+version: 2
+
+# ---------------------------------------------------------------------------
+# 构建前钩子
+# 在编译之前执行的命令，通常用于代码生成、依赖整理等
+# ---------------------------------------------------------------------------
+before:
+  hooks:
+    - go mod tidy
+    - go generate ./...
+
+# ---------------------------------------------------------------------------
+# 编译配置
+# 定义如何编译 Go 二进制文件，支持多平台交叉编译
+# ---------------------------------------------------------------------------
+builds:
+  - id: server
+    main: ./cmd/server          # 入口文件路径
+    binary: myapp               # 输出二进制文件名
+    env:
+      - CGO_ENABLED=0           # 禁用 CGO，生成纯静态二进制
+    goos:                       # 目标操作系统
+      - linux
+      - darwin
+      - windows
+    goarch:                     # 目标 CPU 架构
+      - amd64
+      - arm64
+    ignore:                     # 排除不需要的平台组合
+      - goos: windows
+        goarch: arm64
+    ldflags:                    # 链接参数，注入版本信息
+      - -s -w                   # -s 去掉符号表，-w 去掉 DWARF 调试信息
+      - -X main.version={{.Version}}
+      - -X main.commit={{.Commit}}
+      - -X main.date={{.Date}}
+    # mod_timestamp: '{{ .CommitTimestamp }}'  # 可选：使用 Git 提交时间作为文件时间戳
+
+# ---------------------------------------------------------------------------
+# 打包配置
+# 定义如何将编译产物打包为归档文件
+# ---------------------------------------------------------------------------
+archives:
+  - id: default
+    format: tar.gz              # 默认归档格式
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- .Version }}_
+      {{- .Os }}_
+      {{- .Arch }}
+    format_overrides:
+      - goos: windows
+        format: zip             # Windows 平台使用 zip 格式
+    files:
+      - README.md
+      - LICENSE*
+      - CHANGELOG*
+
+# ---------------------------------------------------------------------------
+# 校验和配置
+# 生成 SHA256 校验文件，用于验证下载文件的完整性
+# ---------------------------------------------------------------------------
+checksum:
+  name_template: 'checksums.txt'
+  algorithm: sha256
+
+# ---------------------------------------------------------------------------
+# 快照配置（本地测试用）
+# goreleaser release --snapshot 时使用的版本号模板
+# ---------------------------------------------------------------------------
+snapshot:
+  version_template: "{{ incpatch .Version }}-next"
+
+# ---------------------------------------------------------------------------
+# Changelog 配置
+# 基于 Git Commit 自动生成变更日志
+# ---------------------------------------------------------------------------
+changelog:
+  sort: asc                     # 按时间升序排列
+  use: github                   # 使用 GitHub API 获取 PR 信息
+  filters:
+    exclude:                    # 排除不需要出现在 Changelog 中的提交
+      - '^docs:'               # 文档变更
+      - '^test:'               # 测试变更
+      - '^ci:'                 # CI 配置变更
+      - '^chore:'              # 杂项
+      - '^style:'              # 代码风格
+      - Merge pull request
+      - Merge branch
+  groups:                       # 按类型分组显示
+    - title: '🚀 新功能'
+      regexp: '^feat'
+    - title: '🐛 Bug 修复'
+      regexp: '^fix'
+    - title: '⚡ 性能优化'
+      regexp: '^perf'
+    - title: '♻️ 重构'
+      regexp: '^refactor'
+    - title: '📦 其他'
+      order: 999
+
+# ---------------------------------------------------------------------------
+# GitHub Release 配置
+# ---------------------------------------------------------------------------
+release:
+  github:
+    owner: your-org             # GitHub 组织或用户名
+    name: your-repo             # 仓库名
+  draft: false                  # 是否创建草稿 Release
+  prerelease: auto              # 自动检测预发布版本（如 v1.0.0-beta.1）
+  name_template: "v{{ .Version }}"
+  header: |
+    ## 更新内容
+  footer: |
+    ---
+    **完整变更日志**: https://github.com/your-org/your-repo/compare/{{ .PreviousTag }}...{{ .Tag }}
+
+# ---------------------------------------------------------------------------
+# Docker 镜像配置
+# 自动构建并推送 Docker 镜像到 GitHub Container Registry
+# ---------------------------------------------------------------------------
+dockers:
+  # AMD64 镜像
+  - image_templates:
+      - "ghcr.io/your-org/your-repo:{{ .Version }}-amd64"
+    use: buildx
+    dockerfile: Dockerfile
+    build_flag_templates:
+      - "--platform=linux/amd64"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+    goarch: amd64
+
+  # ARM64 镜像
+  - image_templates:
+      - "ghcr.io/your-org/your-repo:{{ .Version }}-arm64"
+    use: buildx
+    dockerfile: Dockerfile
+    build_flag_templates:
+      - "--platform=linux/arm64"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+    goarch: arm64
+
+# Docker Manifest（多架构镜像）
+docker_manifests:
+  - name_template: "ghcr.io/your-org/your-repo:{{ .Version }}"
+    image_templates:
+      - "ghcr.io/your-org/your-repo:{{ .Version }}-amd64"
+      - "ghcr.io/your-org/your-repo:{{ .Version }}-arm64"
+  - name_template: "ghcr.io/your-org/your-repo:latest"
+    image_templates:
+      - "ghcr.io/your-org/your-repo:{{ .Version }}-amd64"
+      - "ghcr.io/your-org/your-repo:{{ .Version }}-arm64"

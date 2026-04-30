@@ -1,0 +1,51 @@
+# Viper 配置管理示例 — 应用配置文件
+# 本文件演示 Viper 读取 YAML 配置、环境变量覆盖、结构体映射
+
+# 服务器配置
+server:
+  host: "0.0.0.0"
+  port: 8080
+  mode: "debug"  # debug | release | test
+  read_timeout: "30s"
+  write_timeout: "30s"
+
+# 数据库配置
+database:
+  driver: "postgres"
+  host: "localhost"
+  port: 5432
+  name: "myapp"
+  user: "postgres"
+  password: "postgres123"
+  max_open_conns: 25
+  max_idle_conns: 10
+  conn_max_lifetime: "5m"
+
+# Redis 配置
+redis:
+  host: "localhost"
+  port: 6379
+  password: ""
+  db: 0
+  pool_size: 10
+
+# 日志配置
+logging:
+  level: "info"  # debug | info | warn | error
+  format: "json"  # json | text
+  output: "stdout"  # stdout | file
+  file_path: "./logs/app.log"
+
+# 功能开关
+features:
+  enable_cache: true
+  enable_rate_limit: true
+  rate_limit_qps: 1000
+  enable_new_ui: false
+  maintenance_mode: false
+
+# 应用信息
+app:
+  name: "my-go-service"
+  version: "1.0.0"
+  env: "development"

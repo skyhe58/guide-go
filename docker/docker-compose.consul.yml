@@ -1,0 +1,35 @@
+# =============================================================================
+# 服务发现与配置中心：Consul
+# 用于：code-examples/03-microservice/service-governance/consul/ 模块
+# 启动命令：docker compose -f docker/docker-compose.consul.yml up -d
+# 停止命令：docker compose -f docker/docker-compose.consul.yml down
+# =============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # Consul 服务发现与配置中心
+  # 用于：服务注册与发现、健康检查、KV 配置存储
+  # HTTP API 地址：localhost:8500，无需认证
+  # DNS 地址：localhost:8600
+  # Go 客户端：github.com/hashicorp/consul/api
+  # ---------------------------------------------------------------------------
+  consul:
+    image: hashicorp/consul:1.18
+    container_name: guide-go-consul
+    restart: unless-stopped
+    ports:
+      - "8500:8500"
+      - "8600:8600/udp"
+    command: agent -server -bootstrap-expect=1 -ui -client=0.0.0.0
+    volumes:
+      - consul-data:/consul/data
+    healthcheck:
+      test: ["CMD", "consul", "members"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+# 数据卷定义
+volumes:
+  consul-data:

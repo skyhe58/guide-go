@@ -1,0 +1,160 @@
+# ============================================
+# Kubernetes Deployment 配置
+# Go 应用部署（含健康检查、资源限制、优雅停机）
+#
+# 部署命令：kubectl apply -f deployment.yaml
+# 查看状态：kubectl get deployment my-go-app
+# 查看 Pod：kubectl get pods -l app=my-go-app
+#
+# 核心特性：
+#   - 3 副本高可用
+#   - 滚动更新（零停机）
+#   - 存活探针 + 就绪探针
+#   - CPU/内存资源限制
+#   - 优雅停机（30 秒超时）
+#   - 从 ConfigMap 和 Secret 注入配置
+# ============================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-go-app
+  namespace: default
+  labels:
+    app: my-go-app
+    version: v1
+spec:
+  # 副本数：生产环境至少 2 个，推荐 3 个
+  replicas: 3
+
+  # 标签选择器：匹配 Pod 模板中的标签
+  selector:
+    matchLabels:
+      app: my-go-app
+
+  # 滚动更新策略
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      # 滚动更新时最多多创建 1 个 Pod（确保有足够容量）
+      maxSurge: 1
+      # 滚动更新时不允许有不可用的 Pod（零停机）
+      maxUnavailable: 0
+
+  # Pod 模板
+  template:
+    metadata:
+      labels:
+        app: my-go-app
+        version: v1
+      annotations:
+        # Prometheus 指标采集注解
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: "/metrics"
+    spec:
+      # 优雅停机超时时间（秒）
+      # Go 应用收到 SIGTERM 后有 30 秒时间完成清理
+      # 超时后 K8s 发送 SIGKILL 强制终止
+      terminationGracePeriodSeconds: 30
+
+      # 容器定义
+      containers:
+        - name: app
+          # 镜像地址（生产环境使用具体版本号，不要用 latest）
+          image: my-go-app:v1.0.0
+          imagePullPolicy: IfNotPresent
+
+          # 容器端口
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+
+          # ---- 存活探针（Liveness Probe）----
+          # 检测应用是否存活，失败后 K8s 重启 Pod
+          # 注意：不要在 livenessProbe 中检查外部依赖（DB、Redis）
+          # 否则外部依赖故障会导致所有 Pod 被重启
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            # 容器启动后等待 10 秒再开始检查
+            initialDelaySeconds: 10
+            # 每 15 秒检查一次
+            periodSeconds: 15
+            # 每次检查超时时间
+            timeoutSeconds: 3
+            # 连续失败 3 次后重启 Pod
+            failureThreshold: 3
+            # 连续成功 1 次后标记为存活
+            successThreshold: 1
+
+          # ---- 就绪探针（Readiness Probe）----
+          # 检测应用是否可以接收流量
+          # 失败后从 Service Endpoints 移除（不接收流量），但不重启
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8080
+            # 容器启动后等待 5 秒再开始检查
+            initialDelaySeconds: 5
+            # 每 5 秒检查一次（比 liveness 更频繁）
+            periodSeconds: 5
+            # 每次检查超时时间
+            timeoutSeconds: 3
+            # 连续失败 3 次后标记为不就绪
+            failureThreshold: 3
+            # 连续成功 1 次后标记为就绪
+            successThreshold: 1
+
+          # ---- 启动探针（Startup Probe）----
+          # 检测应用是否启动完成
+          # 启动探针成功前，liveness 和 readiness 探针不会执行
+          # 适用于启动较慢的应用（如需要加载大量数据）
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            # 每 5 秒检查一次
+            periodSeconds: 5
+            # 最多允许 30 次失败（即最多等待 150 秒启动）
+            failureThreshold: 30
+
+          # ---- 资源限制 ----
+          resources:
+            # 最低资源需求（Scheduler 调度依据）
+            requests:
+              cpu: "100m"       # 0.1 核 CPU
+              memory: "64Mi"    # 64MB 内存
+            # 资源上限（超出 CPU 会被限流，超出内存会被 OOM Kill）
+            limits:
+              cpu: "500m"       # 0.5 核 CPU
+              memory: "256Mi"   # 256MB 内存
+
+          # ---- 环境变量 ----
+          # 从 ConfigMap 批量注入非敏感配置
+          envFrom:
+            - configMapRef:
+                name: app-config
+
+          # 从 Secret 注入敏感配置
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: DB_PASSWORD
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: JWT_SECRET
+
+          # ---- 生命周期钩子 ----
+          lifecycle:
+            # preStop 钩子：在 SIGTERM 之前执行
+            # 等待 5 秒，确保 Service Endpoints 已更新
+            # 避免滚动更新时的短暂请求失败
+            preStop:
+              exec:
+                command: ["sh", "-c", "sleep 5"]

@@ -1,0 +1,133 @@
+# =============================================================================
+# 基础中间件：MySQL、PostgreSQL、Redis、MongoDB、MinIO
+# 启动命令：docker compose -f docker/docker-compose.yml up -d
+# 启动单个服务：docker compose -f docker/docker-compose.yml up -d redis
+# 停止命令：docker compose -f docker/docker-compose.yml down
+# =============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # MySQL 数据库
+  # 用于：code-examples/02-web-data/database/ 模块
+  # 连接地址：localhost:3306，用户名：root，密码：root123
+  # ---------------------------------------------------------------------------
+  mysql:
+    image: mysql:8.0
+    container_name: guide-go-mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: guide_go
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_unicode_ci
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # ---------------------------------------------------------------------------
+  # PostgreSQL 数据库
+  # 用于：code-examples/02-web-data/database/ 模块
+  # 连接地址：localhost:5432，用户名：postgres，密码：postgres123
+  # ---------------------------------------------------------------------------
+  postgresql:
+    image: postgres:16-alpine
+    container_name: guide-go-postgresql
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: guide_go
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  # ---------------------------------------------------------------------------
+  # Redis 缓存
+  # 用于：code-examples/02-web-data/cache-search/redis/ 模块
+  # 连接地址：localhost:6379，无密码
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: guide-go-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # MongoDB 文档数据库
+  # 用于：code-examples/02-web-data/object-storage/mongodb/ 模块
+  # 连接地址：localhost:27017，用户名：root，密码：root123
+  # ---------------------------------------------------------------------------
+  mongodb:
+    image: mongo:7
+    container_name: guide-go-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root123
+      MONGO_INITDB_DATABASE: guide_go
+    volumes:
+      - mongodb-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  # ---------------------------------------------------------------------------
+  # MinIO 对象存储（兼容 S3 API）
+  # 用于：code-examples/02-web-data/object-storage/minio/ 模块
+  # API 地址：localhost:9000，控制台：localhost:9001
+  # 用户名：minioadmin，密码：minioadmin
+  # ---------------------------------------------------------------------------
+  minio:
+    image: minio/minio:latest
+    container_name: guide-go-minio
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - minio-data:/data
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+# 数据卷定义
+volumes:
+  mysql-data:
+  postgresql-data:
+  redis-data:
+  mongodb-data:
+  minio-data:

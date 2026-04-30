@@ -1,0 +1,203 @@
+# =============================================================================
+# GitHub Actions CI/CD 配置示例
+# 适用于：Go 项目的完整 CI/CD 流水线
+# 功能：代码检查（lint）+ 单元测试（test）+ 编译构建（build）+ 自动部署（deploy）
+#
+# 使用说明：
+#   1. 将此文件放到项目根目录的 .github/workflows/ 下
+#   2. 推送代码到 main 分支或创建 PR 时自动触发 CI
+#   3. 打 Tag（v*）时自动触发 Release 发布
+#
+# Go 版本：Go 1.22+
+# 最后验证：2024-12-01
+# =============================================================================
+
+name: CI/CD
+
+# 触发条件
+on:
+  push:
+    branches: [main]
+    tags:
+      - 'v*'  # 匹配 v1.0.0、v2.1.3 等语义化版本 Tag
+  pull_request:
+    branches: [main]
+
+# 环境变量
+env:
+  GO_VERSION: '1.22'
+  APP_NAME: 'myapp'
+
+jobs:
+  # ===========================================================================
+  # Job 1: 代码检查（Lint）
+  # 使用 golangci-lint 进行静态分析，检查代码规范和潜在 bug
+  # ===========================================================================
+  lint:
+    name: 代码检查
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache: true  # 自动缓存 ~/go/pkg/mod 和 ~/.cache/go-build
+
+      - name: 运行 golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: latest
+          args: --timeout=5m
+
+  # ===========================================================================
+  # Job 2: 单元测试（Test）
+  # 运行所有单元测试，开启竞态检测和覆盖率统计
+  # ===========================================================================
+  test:
+    name: 单元测试
+    runs-on: ubuntu-latest
+    needs: lint  # 依赖 lint 通过后才执行
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache: true
+
+      - name: 运行测试
+        run: |
+          go test -v -race -coverprofile=coverage.out -covermode=atomic ./...
+
+      - name: 上传覆盖率报告
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.out
+          retention-days: 7
+
+  # ===========================================================================
+  # Job 3: 编译构建（Build）
+  # 编译 Go 二进制文件，注入版本信息，验证可构建性
+  # ===========================================================================
+  build:
+    name: 编译构建
+    runs-on: ubuntu-latest
+    needs: test  # 依赖测试通过后才执行
+    strategy:
+      matrix:
+        goos: [linux, darwin, windows]
+        goarch: [amd64, arm64]
+        exclude:
+          - goos: windows
+            goarch: arm64  # Windows ARM64 场景较少，排除
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 获取完整 Git 历史，用于版本信息
+
+      - name: 安装 Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache: true
+
+      - name: 获取版本信息
+        id: version
+        run: |
+          echo "version=$(git describe --tags --always --dirty)" >> $GITHUB_OUTPUT
+          echo "commit=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+          echo "date=$(date -u '+%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
+
+      - name: 编译
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+          CGO_ENABLED: 0
+        run: |
+          BINARY_NAME="${{ env.APP_NAME }}-${{ matrix.goos }}-${{ matrix.goarch }}"
+          if [ "${{ matrix.goos }}" = "windows" ]; then
+            BINARY_NAME="${BINARY_NAME}.exe"
+          fi
+          go build \
+            -ldflags="-s -w -X main.version=${{ steps.version.outputs.version }} -X main.commit=${{ steps.version.outputs.commit }} -X main.date=${{ steps.version.outputs.date }}" \
+            -o "bin/${BINARY_NAME}" \
+            ./cmd/server
+
+      - name: 上传构建产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: binary-${{ matrix.goos }}-${{ matrix.goarch }}
+          path: bin/
+          retention-days: 7
+
+  # ===========================================================================
+  # Job 4: Docker 镜像构建
+  # 构建多阶段 Docker 镜像并推送到 GitHub Container Registry
+  # 仅在 main 分支 push 时触发
+  # ===========================================================================
+  docker:
+    name: Docker 镜像
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 登录 GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 构建并推送 Docker 镜像
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ github.repository }}:${{ github.sha }}
+
+  # ===========================================================================
+  # Job 5: 自动发布（Release）
+  # 使用 GoReleaser 自动创建 GitHub Release
+  # 仅在推送 Tag（v*）时触发
+  # ===========================================================================
+  release:
+    name: 自动发布
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # GoReleaser 需要完整 Git 历史生成 Changelog
+
+      - name: 安装 Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache: true
+
+      - name: 运行 GoReleaser
+        uses: goreleaser/goreleaser-action@v6
+        with:
+          version: latest
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

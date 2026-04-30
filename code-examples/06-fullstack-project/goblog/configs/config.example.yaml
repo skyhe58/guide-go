@@ -1,0 +1,43 @@
+# GoBlog 配置示例文件
+# 复制为 config.yaml 并修改敏感信息后使用
+# 所有配置项均可通过环境变量覆盖，格式：GOBLOG_<SECTION>_<KEY>
+
+server:
+  port: 8080
+  mode: debug
+  read_timeout: 10s
+  write_timeout: 10s
+  shutdown_timeout: 30s
+
+database:
+  host: localhost
+  port: 5432
+  user: postgres
+  password: "your-db-password"
+  dbname: goblog
+  sslmode: disable
+  max_open_conns: 25
+  max_idle_conns: 10
+  conn_max_lifetime: 5m
+  log_level: warn
+
+redis:
+  addr: localhost:6379
+  password: ""
+  db: 0
+  pool_size: 10
+
+jwt:
+  secret: "change-this-to-a-strong-secret-key"
+  access_token_ttl: 15m
+  refresh_token_ttl: 168h
+  issuer: goblog
+
+rate_limit:
+  requests_per_second: 10
+  burst: 20
+
+log:
+  level: debug
+  format: json
+  output: stdout

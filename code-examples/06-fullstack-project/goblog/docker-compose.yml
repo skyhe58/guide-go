@@ -1,0 +1,73 @@
+# GoBlog Docker Compose 一键启动配置
+# 包含 GoBlog 应用 + PostgreSQL + Redis
+#
+# 启动命令：docker compose up -d
+# 停止命令：docker compose down
+# 查看日志：docker compose logs -f goblog
+
+services:
+  # ==================== PostgreSQL 数据库 ====================
+  postgres:
+    image: postgres:16-alpine
+    container_name: goblog-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: goblog
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ==================== Redis 缓存 ====================
+  redis:
+    image: redis:7-alpine
+    container_name: goblog-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ==================== GoBlog 应用 ====================
+  goblog:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: goblog-app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      # 通过环境变量覆盖配置文件中的默认值
+      GOBLOG_SERVER_MODE: release
+      GOBLOG_DATABASE_HOST: postgres
+      GOBLOG_DATABASE_PORT: "5432"
+      GOBLOG_DATABASE_USER: postgres
+      GOBLOG_DATABASE_PASSWORD: postgres123
+      GOBLOG_DATABASE_DBNAME: goblog
+      GOBLOG_DATABASE_SSLMODE: disable
+      GOBLOG_REDIS_ADDR: redis:6379
+      GOBLOG_JWT_SECRET: "change-this-in-production"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local

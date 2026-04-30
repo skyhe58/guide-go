@@ -1,0 +1,68 @@
+# ============================================
+# Kubernetes Service 配置
+# 为 Go 应用提供服务发现和负载均衡
+#
+# 部署命令：kubectl apply -f service.yaml
+# 查看状态：kubectl get svc my-go-app
+# 查看端点：kubectl get endpoints my-go-app
+#
+# 包含两种 Service 类型：
+#   1. ClusterIP：集群内部访问（生产推荐）
+#   2. NodePort：通过节点端口外部访问（开发测试用）
+# ============================================
+
+---
+# ============================================
+# ClusterIP Service（集群内部访问）
+# 生产环境推荐：配合 Ingress 暴露外部流量
+# 集群内其他服务通过 my-go-app:80 访问
+# ============================================
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-go-app
+  namespace: default
+  labels:
+    app: my-go-app
+spec:
+  # ClusterIP：分配集群内部 IP，只能在集群内访问
+  type: ClusterIP
+  # 标签选择器：匹配 Deployment 中 Pod 的标签
+  selector:
+    app: my-go-app
+  ports:
+    - name: http
+      protocol: TCP
+      # Service 端口（集群内通过 my-go-app:80 访问）
+      port: 80
+      # 目标 Pod 端口（Go 应用监听的端口）
+      targetPort: 8080
+
+---
+# ============================================
+# NodePort Service（外部访问）
+# 开发测试用：通过 <NodeIP>:30080 从外部访问
+# 生产环境不推荐，应使用 Ingress + ClusterIP
+# ============================================
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-go-app-nodeport
+  namespace: default
+  labels:
+    app: my-go-app
+spec:
+  # NodePort：在每个 Node 上开放端口
+  type: NodePort
+  selector:
+    app: my-go-app
+  ports:
+    - name: http
+      protocol: TCP
+      # Service 端口
+      port: 80
+      # 目标 Pod 端口
+      targetPort: 8080
+      # Node 端口（范围 30000-32767）
+      # 通过 <任意 NodeIP>:30080 从外部访问
+      nodePort: 30080

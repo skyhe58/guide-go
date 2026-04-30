@@ -1,0 +1,147 @@
+# ============================================
+# Docker Compose 编排示例
+# Go 服务 + PostgreSQL + Redis 完整技术栈
+#
+# 启动命令：docker compose up -d
+# 停止命令：docker compose down
+# 查看日志：docker compose logs -f app
+#
+# 服务说明：
+#   app:      Go 应用服务（从 Dockerfile 构建）
+#   postgres: PostgreSQL 16 数据库
+#   redis:    Redis 7 缓存
+#
+# Go 版本要求：Go 1.22+
+# 最后验证日期：2024-12-01
+# ============================================
+
+services:
+  # ============================================
+  # Go 应用服务
+  # ============================================
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: go-app
+    ports:
+      - "8080:8080"          # HTTP 服务端口
+    environment:
+      # 应用配置（通过环境变量注入）
+      - APP_ENV=production
+      - APP_PORT=8080
+      # 数据库配置（使用服务名 postgres 作为主机名）
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres123
+      - DB_NAME=myapp
+      - DB_SSLMODE=disable
+      # Redis 配置（使用服务名 redis 作为主机名）
+      - REDIS_ADDR=redis:6379
+      - REDIS_PASSWORD=
+      - REDIS_DB=0
+    depends_on:
+      postgres:
+        condition: service_healthy    # 等待 PostgreSQL 健康检查通过
+      redis:
+        condition: service_healthy    # 等待 Redis 健康检查通过
+    restart: unless-stopped
+    networks:
+      - app-network
+    # 资源限制
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 256M
+        reservations:
+          cpus: "0.25"
+          memory: 64M
+    # 健康检查
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # ============================================
+  # PostgreSQL 数据库
+  # ============================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: go-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: myapp
+      # 设置时区
+      TZ: Asia/Shanghai
+      PGTZ: Asia/Shanghai
+    volumes:
+      # 命名卷持久化数据（容器删除后数据不丢失）
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - app-network
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+
+  # ============================================
+  # Redis 缓存
+  # ============================================
+  redis:
+    image: redis:7-alpine
+    container_name: go-redis
+    ports:
+      - "6379:6379"
+    # Redis 配置：开启 AOF 持久化，设置最大内存
+    command: >
+      redis-server
+      --appendonly yes
+      --maxmemory 128mb
+      --maxmemory-policy allkeys-lru
+    volumes:
+      # 命名卷持久化 Redis 数据
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - app-network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+
+# ============================================
+# 命名卷定义（数据持久化）
+# ============================================
+volumes:
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local
+
+# ============================================
+# 自定义网络（服务间通过服务名通信）
+# ============================================
+networks:
+  app-network:
+    driver: bridge

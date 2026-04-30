@@ -1,0 +1,25 @@
+go 1.22
+
+use (
+	./01-go-core/go-basics
+	./01-go-core/go-advanced
+	./01-go-core/concurrent
+	./01-go-core/runtime
+	./01-go-core/testing-tools
+	./01-go-core/design-patterns
+	./01-go-core/algorithm
+	./02-web-data/web-framework
+	./02-web-data/database
+	./02-web-data/cache-search
+	./02-web-data/message-queue
+	./02-web-data/object-storage
+	./02-web-data/auth
+	./02-web-data/observability
+	./03-microservice/microservice
+	./03-microservice/service-governance
+	./03-microservice/aws
+	./04-distributed/distributed
+	./04-distributed/architecture
+	./04-distributed/ai
+	./06-fullstack-project/goblog
+)

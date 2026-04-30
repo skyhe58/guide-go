@@ -1,0 +1,104 @@
+# ============================================
+# Kubernetes Ingress 配置
+# 使用 Nginx Ingress Controller 管理外部流量路由
+#
+# 前置条件：
+#   安装 Nginx Ingress Controller：
+#   kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.9.0/deploy/static/provider/cloud/deploy.yaml
+#
+# 部署命令：kubectl apply -f ingress.yaml
+# 查看状态：kubectl get ingress my-go-app
+# 查看详情：kubectl describe ingress my-go-app
+#
+# 功能说明：
+#   - 域名路由：api.example.com → my-go-app Service
+#   - TLS 终止：HTTPS 在 Ingress 层终止，后端用 HTTP
+#   - 限流配置：每秒 100 个请求
+#   - CORS 跨域：允许指定域名跨域访问
+# ============================================
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-go-app
+  namespace: default
+  labels:
+    app: my-go-app
+  annotations:
+    # ---- Nginx Ingress Controller 注解 ----
+
+    # 指定 Ingress Controller 类型
+    kubernetes.io/ingress.class: "nginx"
+
+    # SSL 重定向：HTTP 自动跳转 HTTPS
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+
+    # 限流配置：每秒 100 个请求，突发 200
+    nginx.ingress.kubernetes.io/limit-rps: "100"
+    nginx.ingress.kubernetes.io/limit-burst-multiplier: "2"
+
+    # 请求体大小限制（文件上传场景）
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+
+    # 超时配置
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "10"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "30"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "30"
+
+    # CORS 跨域配置
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://www.example.com"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, DELETE, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "Authorization, Content-Type, X-Request-ID"
+    nginx.ingress.kubernetes.io/cors-max-age: "3600"
+
+    # 自定义 Nginx 配置片段
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      # 添加安全响应头
+      add_header X-Content-Type-Options "nosniff" always;
+      add_header X-Frame-Options "DENY" always;
+      add_header X-XSS-Protection "1; mode=block" always;
+
+spec:
+  # 指定 Ingress Class（K8s 1.18+）
+  ingressClassName: nginx
+
+  # TLS 配置
+  tls:
+    - hosts:
+        - api.example.com
+      # TLS 证书 Secret（需要提前创建）
+      # 创建命令：kubectl create secret tls tls-secret --cert=tls.crt --key=tls.key
+      secretName: tls-secret
+
+  # 路由规则
+  rules:
+    # 域名：api.example.com
+    - host: api.example.com
+      http:
+        paths:
+          # API 路由：所有 /api/ 开头的请求转发到 Go 服务
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: my-go-app
+                port:
+                  number: 80
+
+          # 健康检查路由（可选，用于外部监控）
+          - path: /healthz
+            pathType: Exact
+            backend:
+              service:
+                name: my-go-app
+                port:
+                  number: 80
+
+          # 指标路由（可选，供 Prometheus 外部采集）
+          - path: /metrics
+            pathType: Exact
+            backend:
+              service:
+                name: my-go-app
+                port:
+                  number: 80

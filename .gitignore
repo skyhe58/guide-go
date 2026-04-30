@@ -1,0 +1,23 @@
+# IDE 配置
+.kiro/
+
+# Node.js
+node_modules/
+docs/.vitepress/dist/
+docs/.vitepress/cache/
+
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go 编译产物（go build 生成的二进制文件）
+code-examples/06-fullstack-project/goblog/goblog
+
+# OS
+.DS_Store
+Thumbs.db
