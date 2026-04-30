@@ -191,17 +191,14 @@ graph LR
 ### 克隆项目
 
 ```bash
-git clone https://github.com/your-username/guide-go.git
+git clone https://github.com/skyhe58/guide-go.git
 cd guide-go
 ```
 
 ### 运行代码示例
 
 ```bash
-# 编译所有代码示例
-cd code-examples && go build ./...
-
-# 运行某个示例（Part A：纯内存模拟，直接运行）
+# 运行某个示例（推荐方式，直接运行不生成文件）
 cd code-examples/01-go-core/go-basics/slice
 go run main.go
 
@@ -210,6 +207,42 @@ docker compose -f docker/docker-compose.yml up -d redis
 cd code-examples/02-web-data/cache-search/redis
 go run main.go real
 ```
+
+### 编译与构建
+
+Go 是编译型语言，`go build` 将 `.go` 源代码编译成**可直接运行的二进制文件**，不需要 Go 环境即可执行。
+
+```bash
+# 编译单个示例（在示例目录下执行，生成与目录同名的二进制文件）
+cd code-examples/01-go-core/concurrent
+go build ./channel/          # 生成 ./channel 可执行文件
+./channel                    # 直接运行
+
+# 编译整个模块（验证所有代码能否通过编译，不生成文件）
+cd code-examples/01-go-core/go-basics
+go build ./...
+
+# 编译 GoBlog 项目
+cd code-examples/06-fullstack-project/goblog
+go build ./cmd/goblog/       # 生成 ./goblog 可执行文件
+
+# 交叉编译（在 macOS 上编译 Linux 版本）
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o goblog-linux ./cmd/goblog/
+```
+
+**`go run` vs `go build` 的区别：**
+
+| 命令 | 作用 | 生成文件 | 适用场景 |
+|------|------|---------|---------|
+| `go run main.go` | 编译并立即运行，运行结束后自动清理 | 无 | 开发调试、学习示例 |
+| `go run ./channel/` | 同上，指定包路径运行（不用写文件名） | 无 | 快速运行某个子目录的示例 |
+| `go build ./channel/` | 编译生成二进制文件，文件名取自目录名（`channel`） | `./channel` | 快速编译，使用默认命名 |
+| `go build -o ./channel/myapp ./channel/` | 编译并指定输出路径和文件名 | `./channel/myapp` | 自定义文件名或输出到指定目录 |
+| `go build ./...` | 编译当前模块所有包，只验证不生成文件 | 无 | CI 检查、批量验证 |
+
+> `-o` 参数控制输出位置和文件名。不加 `-o` 时，二进制文件生成在当前目录，文件名为包所在目录名。
+
+> 编译产物（二进制文件）已在 `.gitignore` 中排除，不会提交到 Git。任何人 clone 后执行 `go build` 即可自行编译。
 
 ### 启动文档站点（本地预览）
 
