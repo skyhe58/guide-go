@@ -8,6 +8,11 @@ export default withMermaid(
     description: 'Go 从入门到精通 — 面向中文开发者的系统学习知识库',
     lang: 'zh-CN',
 
+    // GitHub Pages 部署子路径（仓库名）
+    // 对应 https://skyhe58.github.io/guide-go/
+    // 必须以 / 开头、以 / 结尾，不设置会导致 assets/css/js 资源 404，页面出现裸 HTML
+    base: '/guide-go/',
+
     // 启用暗色模式
     appearance: true,
 

@@ -116,6 +116,10 @@ jobs:
 
       - name: 配置 GitHub Pages
         uses: actions/configure-pages@v5
+        with:
+          # 仓库 Pages 未启用时自动启用（需 pages: write 权限）
+          # 避免首次部署报 "Get Pages site failed ... Not Found"
+          enablement: true
 
       - name: 上传构建产物
         uses: actions/upload-pages-artifact@v3
