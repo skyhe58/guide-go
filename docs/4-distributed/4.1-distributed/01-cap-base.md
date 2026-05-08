@@ -138,7 +138,7 @@ Go 生态中的分布式系统组件体现了不同的 CAP 选择：
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/04-distributed/distributed/](https://github.com/your-repo/code-examples/04-distributed/distributed/)
+> 💻 完整可运行代码：[code-examples/04-distributed/distributed/](https://github.com/skyhe58/guide-go/tree/main/code-examples/04-distributed/distributed/)
 > 🏷️ CAP/BASE 是理论知识，代码示例体现在后续的分布式锁、限流、熔断等实践模块中
 
 ## 常见面试题

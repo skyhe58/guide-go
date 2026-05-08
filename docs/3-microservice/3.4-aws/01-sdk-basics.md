@@ -186,7 +186,7 @@ client := s3.NewFromConfig(cfg, func(o *s3.Options) {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/03-microservice/aws/](https://github.com/your-repo/code-examples/03-microservice/aws/)
+> 💻 完整可运行代码：[code-examples/03-microservice/aws/](https://github.com/skyhe58/guide-go/tree/main/code-examples/03-microservice/aws/)
 > 🏷️ Demo 模式：各子目录包含 Part A（内存模拟）和 Part B（连接 LocalStack）
 
 ## 常见面试题

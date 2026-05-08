@@ -104,7 +104,7 @@ token, err := conf.Exchange(ctx, code)
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/auth/oauth2/](https://github.com/your-repo/code-examples/02-web-data/auth/oauth2/)
+> 💻 完整可运行代码：[code-examples/02-web-data/auth/oauth2/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/auth/oauth2/)
 > 🏷️ Demo 模式：纯 Go（模拟 OAuth2 授权码流程，无需真实 GitHub 应用）
 
 ## 常见面试题

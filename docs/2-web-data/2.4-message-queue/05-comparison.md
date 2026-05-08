@@ -117,7 +117,7 @@ graph TD
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/message-queue/](https://github.com/your-repo/code-examples/02-web-data/message-queue/)
+> 💻 完整可运行代码：[code-examples/02-web-data/message-queue/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/message-queue/)
 > 🏷️ 四种消息队列的 Go 客户端示例均在此目录下
 
 ## 常见面试题

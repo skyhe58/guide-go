@@ -49,7 +49,7 @@ Go 生态中，**etcd** 是最主流的服务注册与发现方案——它本�
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/03-microservice/service-governance/](https://github.com/your-repo/code-examples/03-microservice/service-governance/)
+> 💻 完整可运行代码：[code-examples/03-microservice/service-governance/](https://github.com/skyhe58/guide-go/tree/main/code-examples/03-microservice/service-governance/)
 
 | 示例目录 | 对应知识点 | 运行方式 | Demo 模式 |
 |---------|-----------|---------|----------|

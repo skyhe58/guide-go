@@ -92,7 +92,7 @@ admin.Use(JWTAuthMiddleware(), RBACMiddleware("admin"))
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/auth/gin-auth-middleware/](https://github.com/your-repo/code-examples/02-web-data/auth/gin-auth-middleware/)
+> 💻 完整可运行代码：[code-examples/02-web-data/auth/gin-auth-middleware/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/auth/gin-auth-middleware/)
 > 🏷️ Demo 模式：纯 Go（使用 httptest 模拟请求，无需启动服务器）
 
 ## 常见面试题

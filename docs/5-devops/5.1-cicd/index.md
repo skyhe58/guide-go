@@ -42,7 +42,7 @@ CI/CD（持续集成/持续部署）是现代软件工程的基石，它将代�
 
 ## 代码示例
 
-> 💻 完整配置文件：[code-examples/05-devops/cicd/](https://github.com/your-repo/code-examples/05-devops/cicd/)
+> 💻 完整配置文件：[code-examples/05-devops/cicd/](https://github.com/skyhe58/guide-go/tree/main/code-examples/05-devops/cicd/)
 
 | 配置文件 | 对应知识点 | 说明 |
 |---------|-----------|------|

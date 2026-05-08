@@ -133,7 +133,7 @@ claims := token.Claims.(*CustomClaims)
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/auth/jwt/](https://github.com/your-repo/code-examples/02-web-data/auth/jwt/)
+> 💻 完整可运行代码：[code-examples/02-web-data/auth/jwt/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/auth/jwt/)
 > 🏷️ Demo 模式：纯 Go（直接运行，无需 Docker）
 
 ## 常见面试题

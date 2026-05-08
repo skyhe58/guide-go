@@ -181,7 +181,7 @@ result, _ := agents.Run(ctx, agent, "计算 123 * 456 的结果")
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/04-distributed/ai/agent-example/](https://github.com/your-repo/code-examples/04-distributed/ai/agent-example/)
+> 💻 完整可运行代码：[code-examples/04-distributed/ai/agent-example/](https://github.com/skyhe58/guide-go/tree/main/code-examples/04-distributed/ai/agent-example/)
 > 🏷️ Demo 模式：Part A（模拟 LLM 决策，直接运行）
 
 代码示例包含：

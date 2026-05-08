@@ -159,7 +159,7 @@ func BenchmarkSliceAppend(b *testing.B) {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/01-go-core/runtime/benchmark/](https://github.com/your-repo/code-examples/01-go-core/runtime/benchmark/)
+> 💻 完整可运行代码：[code-examples/01-go-core/runtime/benchmark/](https://github.com/skyhe58/guide-go/tree/main/code-examples/01-go-core/runtime/benchmark/)
 > 🏷️ Demo 模式：`go test -bench=. -benchmem`
 
 ## 常见面试题

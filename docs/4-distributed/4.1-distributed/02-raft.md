@@ -258,7 +258,7 @@ r.BootstrapCluster(configuration)
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/04-distributed/distributed/raft-example/](https://github.com/your-repo/code-examples/04-distributed/distributed/raft-example/)
+> 💻 完整可运行代码：[code-examples/04-distributed/distributed/raft-example/](https://github.com/skyhe58/guide-go/tree/main/code-examples/04-distributed/distributed/raft-example/)
 > 🏷️ Demo 模式：纯 Go（模拟 Raft Leader 选举和日志复制）
 
 ## 常见面试题

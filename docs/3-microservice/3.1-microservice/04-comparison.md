@@ -169,7 +169,7 @@ import (
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/03-microservice/microservice/](https://github.com/your-repo/code-examples/03-microservice/microservice/)
+> 💻 完整可运行代码：[code-examples/03-microservice/microservice/](https://github.com/skyhe58/guide-go/tree/main/code-examples/03-microservice/microservice/)
 
 ## 常见面试题
 

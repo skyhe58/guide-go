@@ -70,7 +70,7 @@ export default withMermaid(
 
       // 社交链接
       socialLinks: [
-        { icon: 'github', link: 'https://github.com/your-username/guide-go' },
+        { icon: 'github', link: 'https://github.com/skyhe58/guide-go' },
       ],
 
       // 页脚

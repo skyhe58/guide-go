@@ -56,7 +56,7 @@ Go 语言在分布式系统领域有着天然优势——etcd、CockroachDB、Ti
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/04-distributed/distributed/](https://github.com/your-repo/code-examples/04-distributed/distributed/)
+> 💻 完整可运行代码：[code-examples/04-distributed/distributed/](https://github.com/skyhe58/guide-go/tree/main/code-examples/04-distributed/distributed/)
 
 | 示例目录 | 对应知识点 | 运行方式 | Demo 模式 |
 |---------|-----------|---------|----------|

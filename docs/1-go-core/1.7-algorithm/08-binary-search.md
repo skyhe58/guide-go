@@ -133,7 +133,7 @@ func findLast(nums []int, target int) int {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/01-go-core/algorithm/sorting/](https://github.com/your-repo/code-examples/01-go-core/algorithm/sorting/)
+> 💻 完整可运行代码：[code-examples/01-go-core/algorithm/sorting/](https://github.com/skyhe58/guide-go/tree/main/code-examples/01-go-core/algorithm/sorting/)
 > 🏷️ Demo 模式：Part A（直接运行）
 
 ## 常见面试题

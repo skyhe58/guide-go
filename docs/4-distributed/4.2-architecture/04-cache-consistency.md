@@ -198,7 +198,7 @@ func (s *Store) SetWithDoubleDelete(key, value string) {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/04-distributed/architecture/cache-consistency/](https://github.com/your-repo/code-examples/04-distributed/architecture/cache-consistency/)
+> 💻 完整可运行代码：[code-examples/04-distributed/architecture/cache-consistency/](https://github.com/skyhe58/guide-go/tree/main/code-examples/04-distributed/architecture/cache-consistency/)
 > 🏷️ Demo 模式：纯 Go（直接运行）
 
 代码示例实现并对比了三种缓存策略：

@@ -119,7 +119,7 @@ func HasPermission(role string, perm Permission) bool {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/auth/rbac-casbin/](https://github.com/your-repo/code-examples/02-web-data/auth/rbac-casbin/)
+> 💻 完整可运行代码：[code-examples/02-web-data/auth/rbac-casbin/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/auth/rbac-casbin/)
 > 🏷️ Demo 模式：纯 Go（直接运行，无需 Docker）
 
 ## 常见面试题

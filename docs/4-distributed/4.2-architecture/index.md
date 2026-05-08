@@ -61,7 +61,7 @@ Go 语言在这些场景中有天然优势——goroutine 轻量并发、channel
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/04-distributed/architecture/](https://github.com/your-repo/code-examples/04-distributed/architecture/)
+> 💻 完整可运行代码：[code-examples/04-distributed/architecture/](https://github.com/skyhe58/guide-go/tree/main/code-examples/04-distributed/architecture/)
 
 | 示例目录 | 对应知识点 | 运行方式 | Demo 模式 |
 |---------|-----------|---------|----------|

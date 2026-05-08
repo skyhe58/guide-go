@@ -113,7 +113,7 @@ Go 标准库的 `sync.Mutex` 只能用于单进程内的互斥，分布式场景
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/cache-search/redis/](https://github.com/your-repo/code-examples/02-web-data/cache-search/redis/)
+> 💻 完整可运行代码：[code-examples/02-web-data/cache-search/redis/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/cache-search/redis/)
 > 🏷️ Demo 模式：Part A（模拟分布式锁逻辑）/ Part B（go-redis 实现真实分布式锁）
 
 ## 常见面试题

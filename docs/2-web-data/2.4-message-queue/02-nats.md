@@ -161,7 +161,7 @@ msgs, _ := sub.Fetch(10, nats.MaxWait(5*time.Second))
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/message-queue/nats/](https://github.com/your-repo/code-examples/02-web-data/message-queue/nats/)
+> 💻 完整可运行代码：[code-examples/02-web-data/message-queue/nats/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/message-queue/nats/)
 > 🏷️ Demo 模式：Part A（内存模拟 Pub/Sub 和 Request-Reply）/ Part B（连接真实 NATS）
 
 ## 常见面试题

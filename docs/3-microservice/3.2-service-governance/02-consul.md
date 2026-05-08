@@ -158,7 +158,7 @@ pair, _, _ := kv.Get("config/db/host", nil)
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/03-microservice/service-governance/consul/](https://github.com/your-repo/code-examples/03-microservice/service-governance/consul/)
+> 💻 完整可运行代码：[code-examples/03-microservice/service-governance/consul/](https://github.com/skyhe58/guide-go/tree/main/code-examples/03-microservice/service-governance/consul/)
 > 🏷️ Demo 模式：Part A（内存模拟服务注册与发现）/ Part B（连接真实 Consul）
 
 ## 常见面试题

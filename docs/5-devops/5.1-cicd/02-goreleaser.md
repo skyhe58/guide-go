@@ -175,7 +175,7 @@ goreleaser release --clean
 
 ## 代码示例
 
-> 💻 完整配置文件：[code-examples/05-devops/cicd/.goreleaser.yml](https://github.com/your-repo/code-examples/05-devops/cicd/.goreleaser.yml)
+> 💻 完整配置文件：[code-examples/05-devops/cicd/.goreleaser.yml](https://github.com/skyhe58/guide-go/tree/main/code-examples/05-devops/cicd/.goreleaser.yml)
 
 ## 常见面试题
 

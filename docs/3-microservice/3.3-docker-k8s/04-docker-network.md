@@ -150,7 +150,7 @@ func main() {
 
 ## 代码示例
 
-> 💻 完整配置文件：[code-examples/03-microservice/docker-k8s/docker-compose.yml](https://github.com/your-repo/code-examples/03-microservice/docker-k8s/docker-compose.yml)
+> 💻 完整配置文件：[code-examples/03-microservice/docker-k8s/docker-compose.yml](https://github.com/skyhe58/guide-go/tree/main/code-examples/03-microservice/docker-k8s/docker-compose.yml)
 > 🏷️ Demo 模式：配置文件（直接使用）
 
 ## 常见面试题

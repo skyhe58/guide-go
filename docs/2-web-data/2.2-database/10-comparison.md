@@ -170,7 +170,7 @@ GORM + Find:               ~1.8ms  (+50%)
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/database/](https://github.com/your-repo/code-examples/02-web-data/database/)
+> 💻 完整可运行代码：[code-examples/02-web-data/database/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/database/)
 > 🏷️ 三种方案的完整示例分别在 `database-sql/`、`gorm-examples/`、`sqlx-examples/` 目录
 
 ## 常见面试题

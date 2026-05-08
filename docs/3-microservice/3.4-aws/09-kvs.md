@@ -117,7 +117,7 @@ fmt.Println(*hlsOutput.HLSStreamingSessionURL)
 ## 代码示例
 
 > 💻 KVS 需要真实 AWS 环境和视频设备，本模块代码示例以 IoT Core MQTT 通信为主
-> 🏷️ 参考：[code-examples/03-microservice/aws/iot-core/](https://github.com/your-repo/code-examples/03-microservice/aws/iot-core/)
+> 🏷️ 参考：[code-examples/03-microservice/aws/iot-core/](https://github.com/skyhe58/guide-go/tree/main/code-examples/03-microservice/aws/iot-core/)
 
 ## 常见面试题
 

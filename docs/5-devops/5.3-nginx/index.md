@@ -43,7 +43,7 @@ Nginx 是全球使用最广泛的 Web 服务器和反向代理服务器。在 Go
 
 ## 代码示例
 
-> 💻 完整配置文件：[code-examples/05-devops/nginx/](https://github.com/your-repo/code-examples/05-devops/nginx/)
+> 💻 完整配置文件：[code-examples/05-devops/nginx/](https://github.com/skyhe58/guide-go/tree/main/code-examples/05-devops/nginx/)
 > 🐳 Docker 启动：`docker compose -f docker/docker-compose.nginx.yml up -d`
 
 | 配置文件 | 对应知识点 | 说明 |

@@ -110,7 +110,7 @@ output, _ := client.GetAuthorizationToken(ctx, &ecr.GetAuthorizationTokenInput{}
 ## 代码示例
 
 > 💻 ECR 操作主要通过 Docker CLI 和 AWS CLI 完成，Go 代码示例见 STS 模块中的凭证获取部分
-> 🏷️ 参考：[code-examples/03-microservice/aws/sts/](https://github.com/your-repo/code-examples/03-microservice/aws/sts/)
+> 🏷️ 参考：[code-examples/03-microservice/aws/sts/](https://github.com/skyhe58/guide-go/tree/main/code-examples/03-microservice/aws/sts/)
 
 ## 常见面试题
 

@@ -156,7 +156,7 @@ RUN upx --best /app
 
 ## 代码示例
 
-> 💻 完整 Dockerfile：[code-examples/03-microservice/docker-k8s/Dockerfile](https://github.com/your-repo/code-examples/03-microservice/docker-k8s/Dockerfile)
+> 💻 完整 Dockerfile：[code-examples/03-microservice/docker-k8s/Dockerfile](https://github.com/skyhe58/guide-go/tree/main/code-examples/03-microservice/docker-k8s/Dockerfile)
 > 🏷️ Demo 模式：配置文件（直接使用）
 
 ## 常见面试题

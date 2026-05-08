@@ -161,7 +161,7 @@ client.SetBucketPolicy(ctx, "my-bucket", policy)
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/object-storage/minio/](https://github.com/your-repo/code-examples/02-web-data/object-storage/minio/)
+> 💻 完整可运行代码：[code-examples/02-web-data/object-storage/minio/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/object-storage/minio/)
 > 🏷️ Demo 模式：Part A（内存模拟对象存储）/ Part B（连接真实 MinIO）
 
 ## 常见面试题

@@ -190,7 +190,7 @@ resp, err := client.CreateChatCompletion(
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/04-distributed/ai/openai-chat/](https://github.com/your-repo/code-examples/04-distributed/ai/openai-chat/)
+> 💻 完整可运行代码：[code-examples/04-distributed/ai/openai-chat/](https://github.com/skyhe58/guide-go/tree/main/code-examples/04-distributed/ai/openai-chat/)
 > 🏷️ Demo 模式：Part A（模拟 API 响应，直接运行）
 
 代码示例包含：

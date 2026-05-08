@@ -235,7 +235,7 @@ _, err = session.WithTransaction(ctx, func(sc mongo.SessionContext) (interface{}
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/object-storage/mongodb/](https://github.com/your-repo/code-examples/02-web-data/object-storage/mongodb/)
+> 💻 完整可运行代码：[code-examples/02-web-data/object-storage/mongodb/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/object-storage/mongodb/)
 > 🏷️ Demo 模式：Part A（内存模拟文档存储）/ Part B（连接真实 MongoDB）
 
 ## 常见面试题

@@ -103,7 +103,7 @@ Go 标准库不涉及 Redis 持久化配置，这是 Redis 服务端的配置项
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/cache-search/redis/](https://github.com/your-repo/code-examples/02-web-data/cache-search/redis/)
+> 💻 完整可运行代码：[code-examples/02-web-data/cache-search/redis/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/cache-search/redis/)
 > 🏷️ Demo 模式：Part A（模拟持久化概念）/ Part B（go-redis 查看持久化信息）
 
 ## 常见面试题

@@ -141,7 +141,7 @@ client.DeleteMessage(ctx, &sqs.DeleteMessageInput{
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/03-microservice/aws/sqs/](https://github.com/your-repo/code-examples/03-microservice/aws/sqs/)
+> 💻 完整可运行代码：[code-examples/03-microservice/aws/sqs/](https://github.com/skyhe58/guide-go/tree/main/code-examples/03-microservice/aws/sqs/)
 > 🏷️ Demo 模式：Part A（内存模拟消息队列）/ Part B（连接 LocalStack SQS）
 
 ## 常见面试题

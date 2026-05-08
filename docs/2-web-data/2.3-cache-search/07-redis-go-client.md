@@ -113,7 +113,7 @@ Go 标准库不包含 Redis 客户端，go-redis 是社区标准选择。
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/cache-search/redis/](https://github.com/your-repo/code-examples/02-web-data/cache-search/redis/)
+> 💻 完整可运行代码：[code-examples/02-web-data/cache-search/redis/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/cache-search/redis/)
 > 🏷️ Demo 模式：Part A（模拟 Pipeline/事务概念）/ Part B（go-redis 完整操作）
 
 ## 常见面试题

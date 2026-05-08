@@ -157,7 +157,7 @@ func main() {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/01-go-core/runtime/benchmark/](https://github.com/your-repo/code-examples/01-go-core/runtime/benchmark/)
+> 💻 完整可运行代码：[code-examples/01-go-core/runtime/benchmark/](https://github.com/skyhe58/guide-go/tree/main/code-examples/01-go-core/runtime/benchmark/)
 > 🏷️ Demo 模式：`go build -gcflags="-m" main_test.go`
 
 ## 常见面试题

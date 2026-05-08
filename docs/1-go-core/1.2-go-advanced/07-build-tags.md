@@ -191,7 +191,7 @@ net/fd_windows.go
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/01-go-core/go-advanced/codegen/](https://github.com/your-repo/code-examples/01-go-core/go-advanced/codegen/)
+> 💻 完整可运行代码：[code-examples/01-go-core/go-advanced/codegen/](https://github.com/skyhe58/guide-go/tree/main/code-examples/01-go-core/go-advanced/codegen/)
 > 🏷️ Demo 模式：Part A（直接运行）
 
 ## 常见面试题

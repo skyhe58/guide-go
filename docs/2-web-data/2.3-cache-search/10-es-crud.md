@@ -108,7 +108,7 @@ graph LR
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/cache-search/elasticsearch/](https://github.com/your-repo/code-examples/02-web-data/cache-search/elasticsearch/)
+> 💻 完整可运行代码：[code-examples/02-web-data/cache-search/elasticsearch/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/cache-search/elasticsearch/)
 > 🏷️ Demo 模式：Part A（模拟 CRUD 概念）/ Part B（go-elasticsearch CRUD 操作）
 
 ## 常见面试题

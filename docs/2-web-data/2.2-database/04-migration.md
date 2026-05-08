@@ -161,7 +161,7 @@ db.AutoMigrate(&User{}, &Article{}, &Tag{})
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/database/migration/](https://github.com/your-repo/code-examples/02-web-data/database/migration/)
+> 💻 完整可运行代码：[code-examples/02-web-data/database/migration/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/database/migration/)
 > 🏷️ Demo 模式：Part A（内存模拟迁移概念）
 
 ## 常见面试题

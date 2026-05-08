@@ -43,7 +43,7 @@ Go 语言实现算法的优势：
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/01-go-core/algorithm/](https://github.com/your-repo/code-examples/01-go-core/algorithm/)
+> 💻 完整可运行代码：[code-examples/01-go-core/algorithm/](https://github.com/skyhe58/guide-go/tree/main/code-examples/01-go-core/algorithm/)
 
 | 示例目录 | 对应知识点 | 运行方式 |
 |---------|-----------|---------|

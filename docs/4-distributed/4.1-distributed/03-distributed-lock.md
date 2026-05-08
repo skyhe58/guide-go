@@ -182,7 +182,7 @@ defer mu.Unlock()
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/04-distributed/distributed/distributed-lock/](https://github.com/your-repo/code-examples/04-distributed/distributed/distributed-lock/)
+> 💻 完整可运行代码：[code-examples/04-distributed/distributed/distributed-lock/](https://github.com/skyhe58/guide-go/tree/main/code-examples/04-distributed/distributed/distributed-lock/)
 > 🏷️ Demo 模式：混合（Part A 内存模拟 + Part B 连接真实 Redis）
 
 ## 常见面试题

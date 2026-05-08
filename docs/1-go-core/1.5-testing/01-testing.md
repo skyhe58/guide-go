@@ -179,7 +179,7 @@ func TestStruct(t *testing.T) {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/01-go-core/testing-tools/tabledriven/](https://github.com/your-repo/code-examples/01-go-core/testing-tools/tabledriven/)
+> 💻 完整可运行代码：[code-examples/01-go-core/testing-tools/tabledriven/](https://github.com/skyhe58/guide-go/tree/main/code-examples/01-go-core/testing-tools/tabledriven/)
 > 🏷️ Demo 模式：Part A（直接运行）
 
 ## 常见面试题

@@ -140,7 +140,7 @@ Bool 查询是最常用的复合查询，通过 must/should/must_not/filter 组�
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/cache-search/elasticsearch/](https://github.com/your-repo/code-examples/02-web-data/cache-search/elasticsearch/)
+> 💻 完整可运行代码：[code-examples/02-web-data/cache-search/elasticsearch/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/cache-search/elasticsearch/)
 > 🏷️ Demo 模式：Part A（模拟 DSL 查询概念）/ Part B（go-elasticsearch DSL 查询）
 
 ## 常见面试题

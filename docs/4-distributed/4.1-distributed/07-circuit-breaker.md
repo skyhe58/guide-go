@@ -158,7 +158,7 @@ result, err := cb.Execute(func() (interface{}, error) {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/04-distributed/distributed/circuit-breaker/](https://github.com/your-repo/code-examples/04-distributed/distributed/circuit-breaker/)
+> 💻 完整可运行代码：[code-examples/04-distributed/distributed/circuit-breaker/](https://github.com/skyhe58/guide-go/tree/main/code-examples/04-distributed/distributed/circuit-breaker/)
 > 🏷️ Demo 模式：纯 Go（完整的熔断器状态机实现 + 模拟服务调用）
 
 ## 常见面试题

@@ -160,7 +160,7 @@ sync 包本身就是标准库，上述所有类型都可以直接使用，无需
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/01-go-core/concurrent/sync/](https://github.com/your-repo/code-examples/01-go-core/concurrent/sync/)
+> 💻 完整可运行代码：[code-examples/01-go-core/concurrent/sync/](https://github.com/skyhe58/guide-go/tree/main/code-examples/01-go-core/concurrent/sync/)
 > 🏷️ Demo 模式：Part A（直接运行）
 
 ## 常见面试题

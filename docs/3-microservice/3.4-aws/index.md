@@ -59,7 +59,7 @@ AWS（Amazon Web Services）是全球最大的云计算平台，Go 语言凭借�
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/03-microservice/aws/](https://github.com/your-repo/code-examples/03-microservice/aws/)
+> 💻 完整可运行代码：[code-examples/03-microservice/aws/](https://github.com/skyhe58/guide-go/tree/main/code-examples/03-microservice/aws/)
 
 | 示例目录 | 对应知识点 | 运行方式 | Demo 模式 |
 |---------|-----------|---------|----------|

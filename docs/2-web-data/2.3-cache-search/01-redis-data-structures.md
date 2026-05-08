@@ -124,7 +124,7 @@ Go 生态中操作 Redis 的主流客户端：
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/cache-search/redis/](https://github.com/your-repo/code-examples/02-web-data/cache-search/redis/)
+> 💻 完整可运行代码：[code-examples/02-web-data/cache-search/redis/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/cache-search/redis/)
 > 🏷️ Demo 模式：Part A（内存模拟数据结构）/ Part B（go-redis 操作真实 Redis）
 
 ## 常见面试题

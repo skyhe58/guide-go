@@ -134,7 +134,7 @@ func getRealIP(r *http.Request) string {
 
 ## 代码示例
 
-> 💻 完整配置文件：[code-examples/05-devops/nginx/conf/go-service.conf](https://github.com/your-repo/code-examples/05-devops/nginx/conf/go-service.conf)
+> 💻 完整配置文件：[code-examples/05-devops/nginx/conf/go-service.conf](https://github.com/skyhe58/guide-go/tree/main/code-examples/05-devops/nginx/conf/go-service.conf)
 > 🐳 Docker 启动：`docker compose -f docker/docker-compose.nginx.yml up -d`
 
 ## 常见面试题

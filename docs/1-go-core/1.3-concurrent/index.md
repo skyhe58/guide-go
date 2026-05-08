@@ -42,7 +42,7 @@ Go 的并发哲学源自 CSP（Communicating Sequential Processes）模型：
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/01-go-core/concurrent/](https://github.com/your-repo/code-examples/01-go-core/concurrent/)
+> 💻 完整可运行代码：[code-examples/01-go-core/concurrent/](https://github.com/skyhe58/guide-go/tree/main/code-examples/01-go-core/concurrent/)
 
 | 示例目录 | 对应知识点 | 运行方式 |
 |---------|-----------|---------|

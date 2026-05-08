@@ -137,7 +137,7 @@ awslocal sqs list-queues
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/03-microservice/aws/](https://github.com/your-repo/code-examples/03-microservice/aws/)
+> 💻 完整可运行代码：[code-examples/03-microservice/aws/](https://github.com/skyhe58/guide-go/tree/main/code-examples/03-microservice/aws/)
 > 🏷️ Demo 模式：Part A（纯内存模拟）/ Part B（连接 LocalStack）
 
 ## 常见面试题

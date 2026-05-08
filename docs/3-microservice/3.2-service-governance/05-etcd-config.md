@@ -149,7 +149,7 @@ for resp := range watchChan {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/03-microservice/service-governance/etcd/](https://github.com/your-repo/code-examples/03-microservice/service-governance/etcd/)
+> 💻 完整可运行代码：[code-examples/03-microservice/service-governance/etcd/](https://github.com/skyhe58/guide-go/tree/main/code-examples/03-microservice/service-governance/etcd/)
 > 🏷️ Demo 模式：Part A（内存模拟配置中心）/ Part B（连接真实 etcd）
 
 ## 常见面试题

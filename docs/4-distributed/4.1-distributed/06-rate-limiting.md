@@ -137,7 +137,7 @@ time.Sleep(reservation.Delay())
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/04-distributed/distributed/rate-limiter/](https://github.com/your-repo/code-examples/04-distributed/distributed/rate-limiter/)
+> 💻 完整可运行代码：[code-examples/04-distributed/distributed/rate-limiter/](https://github.com/skyhe58/guide-go/tree/main/code-examples/04-distributed/distributed/rate-limiter/)
 > 🏷️ Demo 模式：纯 Go（三种限流算法的完整实现 + 并发测试）
 
 ## 常见面试题

@@ -267,7 +267,7 @@ Kratos 的插件生态：
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/03-microservice/microservice/kratos-example/](https://github.com/your-repo/code-examples/03-microservice/microservice/kratos-example/)
+> 💻 完整可运行代码：[code-examples/03-microservice/microservice/kratos-example/](https://github.com/skyhe58/guide-go/tree/main/code-examples/03-microservice/microservice/kratos-example/)
 > 🏷️ Demo 模式：Part A（纯 Go 模拟，直接运行）
 
 ## 常见面试题

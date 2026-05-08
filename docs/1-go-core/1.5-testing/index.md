@@ -45,7 +45,7 @@ Go 语言内置了强大的测试框架和工具链，体现了 Go "电池内置
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/01-go-core/testing-tools/](https://github.com/your-repo/code-examples/01-go-core/testing-tools/)
+> 💻 完整可运行代码：[code-examples/01-go-core/testing-tools/](https://github.com/skyhe58/guide-go/tree/main/code-examples/01-go-core/testing-tools/)
 
 | 示例目录 | 对应知识点 | 运行方式 |
 |---------|-----------|---------|

@@ -111,7 +111,7 @@ if _, loaded := processed.LoadOrStore(requestID, true); loaded {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/04-distributed/distributed/](https://github.com/your-repo/code-examples/04-distributed/distributed/)
+> 💻 完整可运行代码：[code-examples/04-distributed/distributed/](https://github.com/skyhe58/guide-go/tree/main/code-examples/04-distributed/distributed/)
 > 🏷️ 幂等性是设计层面的知识，核心代码示例体现在分布式锁和架构设计模块中
 
 ## 常见面试题

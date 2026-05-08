@@ -107,7 +107,7 @@ Fuzz 函数支持以下参数类型：
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/01-go-core/testing-tools/fuzz/](https://github.com/your-repo/code-examples/01-go-core/testing-tools/fuzz/)
+> 💻 完整可运行代码：[code-examples/01-go-core/testing-tools/fuzz/](https://github.com/skyhe58/guide-go/tree/main/code-examples/01-go-core/testing-tools/fuzz/)
 > 🏷️ Demo 模式：Part A（直接运行）
 
 ## 常见面试题

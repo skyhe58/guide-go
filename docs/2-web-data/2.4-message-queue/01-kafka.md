@@ -189,7 +189,7 @@ func (h *ConsumerHandler) ConsumeClaim(session sarama.ConsumerGroupSession, clai
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/message-queue/kafka/](https://github.com/your-repo/code-examples/02-web-data/message-queue/kafka/)
+> 💻 完整可运行代码：[code-examples/02-web-data/message-queue/kafka/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/message-queue/kafka/)
 > 🏷️ Demo 模式：Part A（内存模拟 Kafka 分区/消费组概念）/ Part B（连接真实 Kafka）
 
 ## 常见面试题

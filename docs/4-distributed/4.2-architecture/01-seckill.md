@@ -209,7 +209,7 @@ func (q *OrderQueue) StartConsumer(handler func(OrderRequest)) {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/04-distributed/architecture/seckill/](https://github.com/your-repo/code-examples/04-distributed/architecture/seckill/)
+> 💻 完整可运行代码：[code-examples/04-distributed/architecture/seckill/](https://github.com/skyhe58/guide-go/tree/main/code-examples/04-distributed/architecture/seckill/)
 > 🏷️ Demo 模式：纯 Go（直接运行）
 
 代码示例实现了完整的秒杀核心链路：

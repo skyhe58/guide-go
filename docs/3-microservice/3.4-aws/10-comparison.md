@@ -125,8 +125,8 @@ graph TD
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/03-microservice/aws/](https://github.com/your-repo/code-examples/03-microservice/aws/)
-> 🏷️ 对比 MinIO 示例：[code-examples/02-web-data/object-storage/minio/](https://github.com/your-repo/code-examples/02-web-data/object-storage/minio/)
+> 💻 完整可运行代码：[code-examples/03-microservice/aws/](https://github.com/skyhe58/guide-go/tree/main/code-examples/03-microservice/aws/)
+> 🏷️ 对比 MinIO 示例：[code-examples/02-web-data/object-storage/minio/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/object-storage/minio/)
 
 ## 常见面试题
 

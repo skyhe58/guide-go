@@ -148,7 +148,7 @@ SSL 终止是指在 Nginx 层解密 HTTPS 请求，然后以 HTTP 明文转发�
 
 ## 代码示例
 
-> 💻 完整配置文件：[code-examples/05-devops/nginx/conf/https.conf](https://github.com/your-repo/code-examples/05-devops/nginx/conf/https.conf)
+> 💻 完整配置文件：[code-examples/05-devops/nginx/conf/https.conf](https://github.com/skyhe58/guide-go/tree/main/code-examples/05-devops/nginx/conf/https.conf)
 
 ## 参考资料
 

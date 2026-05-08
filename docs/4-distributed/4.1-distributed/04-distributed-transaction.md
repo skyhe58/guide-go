@@ -195,7 +195,7 @@ return tx.Commit()
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/04-distributed/distributed/](https://github.com/your-repo/code-examples/04-distributed/distributed/)
+> 💻 完整可运行代码：[code-examples/04-distributed/distributed/](https://github.com/skyhe58/guide-go/tree/main/code-examples/04-distributed/distributed/)
 > 🏷️ 分布式事务是架构层面的知识，代码示例体现在架构设计场景模块中
 
 ## 常见面试题

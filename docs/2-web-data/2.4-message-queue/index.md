@@ -46,7 +46,7 @@ tags:
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/message-queue/](https://github.com/your-repo/code-examples/02-web-data/message-queue/)
+> 💻 完整可运行代码：[code-examples/02-web-data/message-queue/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/message-queue/)
 
 | 示例目录 | 对应知识点 | 运行方式 | Demo 模式 |
 |---------|-----------|---------|----------|

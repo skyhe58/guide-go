@@ -113,7 +113,7 @@ rdb := redis.NewFailoverClient(&redis.FailoverOptions{
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/cache-search/redis/](https://github.com/your-repo/code-examples/02-web-data/cache-search/redis/)
+> 💻 完整可运行代码：[code-examples/02-web-data/cache-search/redis/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/cache-search/redis/)
 > 🏷️ Demo 模式：Part A（模拟主从复制概念）
 
 ## 常见面试题

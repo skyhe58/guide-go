@@ -131,7 +131,7 @@ client.Subscribe("devices/001/commands", 1, func(c mqtt.Client, m mqtt.Message) 
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/03-microservice/aws/iot-core/](https://github.com/your-repo/code-examples/03-microservice/aws/iot-core/)
+> 💻 完整可运行代码：[code-examples/03-microservice/aws/iot-core/](https://github.com/skyhe58/guide-go/tree/main/code-examples/03-microservice/aws/iot-core/)
 > 🏷️ Demo 模式：纯 Go（模拟 IoT 设备注册、MQTT 通信、设备影子）
 
 ## 常见面试题

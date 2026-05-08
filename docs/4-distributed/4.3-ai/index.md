@@ -65,7 +65,7 @@ Ollama 提供与 OpenAI 兼容的 API 接口（`http://localhost:11434/v1/`）�
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/04-distributed/ai/](https://github.com/your-repo/code-examples/04-distributed/ai/)
+> 💻 完整可运行代码：[code-examples/04-distributed/ai/](https://github.com/skyhe58/guide-go/tree/main/code-examples/04-distributed/ai/)
 
 | 示例目录 | 对应知识点 | 运行方式 | Demo 模式 |
 |---------|-----------|---------|----------|

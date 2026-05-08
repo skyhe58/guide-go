@@ -195,7 +195,7 @@ results, _ := store.SimilaritySearch(ctx, "什么是 goroutine？", 3)
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/04-distributed/ai/rag-example/](https://github.com/your-repo/code-examples/04-distributed/ai/rag-example/)
+> 💻 完整可运行代码：[code-examples/04-distributed/ai/rag-example/](https://github.com/skyhe58/guide-go/tree/main/code-examples/04-distributed/ai/rag-example/)
 > 🏷️ Demo 模式：Part A（内存向量存储 + 模拟 Embedding，直接运行）
 
 代码示例包含完整的 RAG 流程：

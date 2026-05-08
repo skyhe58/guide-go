@@ -260,7 +260,7 @@ Go-Zero 的生态相对封闭，大部分能力内置：
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/03-microservice/microservice/go-zero-example/](https://github.com/your-repo/code-examples/03-microservice/microservice/go-zero-example/)
+> 💻 完整可运行代码：[code-examples/03-microservice/microservice/go-zero-example/](https://github.com/skyhe58/guide-go/tree/main/code-examples/03-microservice/microservice/go-zero-example/)
 > 🏷️ Demo 模式：Part A（纯 Go 模拟，直接运行）
 
 ## 常见面试题

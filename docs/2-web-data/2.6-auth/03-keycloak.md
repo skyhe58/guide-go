@@ -109,7 +109,7 @@ docker compose -f docker/docker-compose.auth.yml up -d
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/auth/keycloak/](https://github.com/your-repo/code-examples/02-web-data/auth/keycloak/)
+> 💻 完整可运行代码：[code-examples/02-web-data/auth/keycloak/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/auth/keycloak/)
 > 🏷️ Demo 模式：混合（Part A 模拟 OIDC 验证 / Part B 连接真实 Keycloak）
 
 ## 常见面试题

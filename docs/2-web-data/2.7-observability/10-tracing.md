@@ -132,7 +132,7 @@ otel.SetTextMapPropagator(propagation.TraceContext{})
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/observability/otel-tracing/](https://github.com/your-repo/code-examples/02-web-data/observability/otel-tracing/)
+> 💻 完整可运行代码：[code-examples/02-web-data/observability/otel-tracing/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/observability/otel-tracing/)
 > 🏷️ Demo 模式：纯 Go（直接运行，使用 stdout exporter）
 
 ## 常见面试题

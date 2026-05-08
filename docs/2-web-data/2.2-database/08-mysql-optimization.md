@@ -184,7 +184,7 @@ for rows.Next() {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/database/database-sql/](https://github.com/your-repo/code-examples/02-web-data/database/database-sql/)
+> 💻 完整可运行代码：[code-examples/02-web-data/database/database-sql/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/database/database-sql/)
 > 🏷️ Demo 模式：Part A（模拟 EXPLAIN 输出分析）
 
 ## 常见面试题

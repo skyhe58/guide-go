@@ -207,7 +207,7 @@ graph TD
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/04-distributed/ai/](https://github.com/your-repo/code-examples/04-distributed/ai/)
+> 💻 完整可运行代码：[code-examples/04-distributed/ai/](https://github.com/skyhe58/guide-go/tree/main/code-examples/04-distributed/ai/)
 > 🏷️ Demo 模式：Part A（直接运行）
 
 ## 常见面试题

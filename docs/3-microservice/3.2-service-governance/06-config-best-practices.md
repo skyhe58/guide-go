@@ -152,7 +152,7 @@ type Config struct {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/03-microservice/service-governance/viper-config/](https://github.com/your-repo/code-examples/03-microservice/service-governance/viper-config/)
+> 💻 完整可运行代码：[code-examples/03-microservice/service-governance/viper-config/](https://github.com/skyhe58/guide-go/tree/main/code-examples/03-microservice/service-governance/viper-config/)
 > 🏷️ Demo 模式：纯 Go（无需 Docker）
 
 ## 常见面试题

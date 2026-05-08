@@ -129,7 +129,7 @@ cfg.Credentials = aws.NewCredentialsCache(creds)
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/03-microservice/aws/sts/](https://github.com/your-repo/code-examples/03-microservice/aws/sts/)
+> 💻 完整可运行代码：[code-examples/03-microservice/aws/sts/](https://github.com/skyhe58/guide-go/tree/main/code-examples/03-microservice/aws/sts/)
 > 🏷️ Demo 模式：纯 Go（模拟 STS AssumeRole 流程）
 
 ## 常见面试题

@@ -148,7 +148,7 @@ func (h *ColorHandler) Handle(ctx context.Context, r slog.Record) error {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/observability/slog-custom/](https://github.com/your-repo/code-examples/02-web-data/observability/slog-custom/)
+> 💻 完整可运行代码：[code-examples/02-web-data/observability/slog-custom/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/observability/slog-custom/)
 > 🏷️ Demo 模式：纯 Go（直接运行）
 
 ## 常见面试题

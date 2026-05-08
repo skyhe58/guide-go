@@ -108,7 +108,7 @@ graph TD
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/03-microservice/service-governance/](https://github.com/your-repo/code-examples/03-microservice/service-governance/)
+> 💻 完整可运行代码：[code-examples/03-microservice/service-governance/](https://github.com/skyhe58/guide-go/tree/main/code-examples/03-microservice/service-governance/)
 > 🏷️ etcd 示例和 Consul 示例分别在 `etcd/` 和 `consul/` 目录
 
 ## 常见面试题

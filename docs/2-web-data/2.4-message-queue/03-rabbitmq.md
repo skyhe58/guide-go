@@ -173,7 +173,7 @@ for msg := range msgs {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/message-queue/rabbitmq/](https://github.com/your-repo/code-examples/02-web-data/message-queue/rabbitmq/)
+> 💻 完整可运行代码：[code-examples/02-web-data/message-queue/rabbitmq/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/message-queue/rabbitmq/)
 > 🏷️ Demo 模式：Part A（内存模拟 Exchange 路由/死信队列概念）/ Part B（连接真实 RabbitMQ）
 
 ## 常见面试题

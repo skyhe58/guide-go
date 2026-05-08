@@ -158,7 +158,7 @@ func (s *URLStore) CreateShortURL(longURL string) string {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/04-distributed/architecture/short-url/](https://github.com/your-repo/code-examples/04-distributed/architecture/short-url/)
+> 💻 完整可运行代码：[code-examples/04-distributed/architecture/short-url/](https://github.com/skyhe58/guide-go/tree/main/code-examples/04-distributed/architecture/short-url/)
 > 🏷️ Demo 模式：纯 Go（直接运行）
 
 代码示例实现了完整的短链接系统：

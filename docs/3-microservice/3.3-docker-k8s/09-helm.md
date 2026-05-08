@@ -189,7 +189,7 @@ resources:
 
 ## 代码示例
 
-> 💻 完整 K8s 配置：[code-examples/03-microservice/docker-k8s/k8s/](https://github.com/your-repo/code-examples/03-microservice/docker-k8s/k8s/)
+> 💻 完整 K8s 配置：[code-examples/03-microservice/docker-k8s/k8s/](https://github.com/skyhe58/guide-go/tree/main/code-examples/03-microservice/docker-k8s/k8s/)
 > 🏷️ Demo 模式：配置文件（直接使用）
 
 ## 常见面试题
