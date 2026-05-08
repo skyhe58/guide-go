@@ -135,7 +135,7 @@ func modify(s []int) {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/01-go-core/go-basics/slice/](../../code-examples/01-go-core/go-basics/slice/)
+> 💻 完整可运行代码：[code-examples/01-go-core/go-basics/slice/](https://github.com/skyhe58/guide-go/tree/main/code-examples/01-go-core/go-basics/slice/)
 > 🧪 包含表驱动测试：`main_test.go`
 
 ## 常见面试题

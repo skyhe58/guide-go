@@ -217,7 +217,7 @@ func GetUser(c *gin.Context) {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/web-framework/gin-rest-api/](../../code-examples/02-web-data/web-framework/gin-rest-api/)
+> 💻 完整可运行代码：[code-examples/02-web-data/web-framework/gin-rest-api/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/web-framework/gin-rest-api/)
 > 🏷️ Demo 模式：Part A（直接运行）
 
 ## 常见面试题

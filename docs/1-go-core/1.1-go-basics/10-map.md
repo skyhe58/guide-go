@@ -131,7 +131,7 @@ func main() {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/01-go-core/go-basics/maps/](../../code-examples/01-go-core/go-basics/maps/)
+> 💻 完整可运行代码：[code-examples/01-go-core/go-basics/maps/](https://github.com/skyhe58/guide-go/tree/main/code-examples/01-go-core/go-basics/maps/)
 
 ## 常见面试题
 

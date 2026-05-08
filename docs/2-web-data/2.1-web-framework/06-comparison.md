@@ -137,7 +137,7 @@ graph TD
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/web-framework/](../../code-examples/02-web-data/web-framework/)
+> 💻 完整可运行代码：[code-examples/02-web-data/web-framework/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/web-framework/)
 > 🏷️ Demo 模式：Part A（直接运行）
 
 ## 常见面试题

@@ -1,23 +1,47 @@
 /**
  * VitePress 代码链接环境动态切换插件
  *
- * - pnpm build: 保持 GitHub URL 原样输出
- * - pnpm dev:   重写为本地路径 + Vite 中间件提供文件服务
+ * - pnpm build: 保持 GitHub URL 原样输出（跳转到 GitHub 仓库源码）
+ * - pnpm dev:   重写为编辑器协议 URL，点击直接在本地编辑器中打开代码
+ *
+ * 通过环境变量 EDITOR_SCHEME 控制使用的编辑器（默认 vscode）：
+ *   EDITOR_SCHEME=goland pnpm dev   → 使用 GoLand 打开
+ *   EDITOR_SCHEME=qoder pnpm dev    → 使用 Qoder 打开
+ *   pnpm dev                        → 使用 VS Code 打开（默认）
  */
 import type MarkdownIt from 'markdown-it'
-import { existsSync, readdirSync, statSync, readFileSync } from 'node:fs'
-import { resolve, join, normalize, relative } from 'node:path'
-import type { Plugin } from 'vite'
+import { resolve } from 'node:path'
 
 // ─── 配置常量 ───────────────────────────────────────────────────────────────────
 // GitHub 仓库地址（用于匹配 markdown 中的链接）
 export const GITHUB_REPO = 'skyhe58/guide-go'
 export const GITHUB_BASE_URL = `https://github.com/${GITHUB_REPO}/tree/main/`
-// 本地代码目录前缀
-export const LOCAL_CODE_PREFIX = '/code-examples/'
 
-// ─── markdown-it 插件：dev 模式下重写代码链接 ──────────────────────────────────────
-export function codeLinksPlugin(md: MarkdownIt): void {
+// 编辑器协议配置
+type EditorScheme = 'vscode' | 'qoder' | 'goland'
+
+const EDITOR_SCHEME: EditorScheme =
+  (process.env.EDITOR_SCHEME as EditorScheme) || 'vscode'
+
+/**
+ * 根据编辑器类型生成打开文件的 URL
+ */
+function buildEditorUrl(absolutePath: string): string {
+  switch (EDITOR_SCHEME) {
+    case 'goland':
+      return `goland://open?file=${encodeURIComponent(absolutePath)}`
+    case 'qoder':
+      return `qoder://file${absolutePath}`
+    case 'vscode':
+    default:
+      return `vscode://file${absolutePath}`
+  }
+}
+
+// ─── markdown-it 插件：dev 模式下重写代码链接为编辑器协议 ───────────────────────────
+export function codeLinksPlugin(md: MarkdownIt, projectRoot: string): void {
+  const codeDir = resolve(projectRoot, 'code-examples')
+
   const defaultRender =
     md.renderer.rules.link_open ||
     ((tokens, idx, options, _env, self) => self.renderToken(tokens, idx, options))
@@ -31,11 +55,9 @@ export function codeLinksPlugin(md: MarkdownIt): void {
       const localPath = extractCodePath(href)
 
       if (localPath) {
-        // 重写为本地路径
-        token.attrs![hrefIndex][1] = LOCAL_CODE_PREFIX + localPath
-        // 新标签页打开，方便文档和代码对照
-        token.attrSet('target', '_blank')
-        token.attrSet('rel', 'noopener noreferrer')
+        // 构建绝对路径并生成编辑器 URL
+        const absolutePath = resolve(codeDir, localPath)
+        token.attrs![hrefIndex][1] = buildEditorUrl(absolutePath)
       }
     }
 
@@ -45,10 +67,8 @@ export function codeLinksPlugin(md: MarkdownIt): void {
 
 /**
  * 从 GitHub URL 中提取 code-examples/ 之后的路径
- * 支持多种格式：
+ * 支持格式：
  *   - https://github.com/skyhe58/guide-go/tree/main/code-examples/...
- *   - https://github.com/your-repo/code-examples/...
- *   - https://github.com/ (忽略，无有效路径)
  */
 function extractCodePath(href: string): string | null {
   if (!href.includes('github.com')) return null
@@ -64,88 +84,4 @@ function extractCodePath(href: string): string | null {
   if (path.includes('..') || path.startsWith('/')) return null
 
   return path
-}
-
-// ─── Vite 插件：dev 模式下提供 code-examples 文件服务 ────────────────────────────
-export function serveCodeExamples(projectRoot: string): Plugin {
-  const codeDir = resolve(projectRoot, 'code-examples')
-
-  return {
-    name: 'serve-code-examples',
-    configureServer(server) {
-      server.middlewares.use((req, res, next) => {
-        const url = req.url || ''
-        if (!url.startsWith(LOCAL_CODE_PREFIX)) return next()
-
-        // 提取请求路径
-        const relativePath = decodeURIComponent(url.slice(LOCAL_CODE_PREFIX.length))
-
-        // 安全检查
-        if (relativePath.includes('..')) {
-          res.statusCode = 403
-          res.end('Forbidden')
-          return
-        }
-
-        const fullPath = normalize(join(codeDir, relativePath))
-
-        // 确保不超出 code-examples 目录
-        if (!fullPath.startsWith(codeDir)) {
-          res.statusCode = 403
-          res.end('Forbidden')
-          return
-        }
-
-        if (!existsSync(fullPath)) {
-          res.statusCode = 404
-          res.end(`Not found: ${relativePath}`)
-          return
-        }
-
-        const stat = statSync(fullPath)
-
-        if (stat.isDirectory()) {
-          // 目录：返回文件列表 HTML
-          const files = readdirSync(fullPath)
-          const listItems = files
-            .map((f) => {
-              const fStat = statSync(join(fullPath, f))
-              const suffix = fStat.isDirectory() ? '/' : ''
-              return `<li><a href="${LOCAL_CODE_PREFIX}${relativePath}${relativePath.endsWith('/') ? '' : '/'}${f}${suffix}">${f}${suffix}</a></li>`
-            })
-            .join('\n')
-
-          res.setHeader('Content-Type', 'text/html; charset=utf-8')
-          res.end(`<!DOCTYPE html>
-<html><head><meta charset="utf-8"><title>${relativePath}</title>
-<style>body{font-family:monospace;padding:2rem;background:#1a1a1a;color:#e0e0e0}
-a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline}
-li{margin:0.3rem 0}</style></head>
-<body><h2>📁 code-examples/${relativePath}</h2><ul>${listItems}</ul></body></html>`)
-        } else {
-          // 文件：直接返回源码内容
-          const content = readFileSync(fullPath, 'utf-8')
-          const ext = fullPath.split('.').pop() || 'txt'
-          const mimeMap: Record<string, string> = {
-            go: 'text/x-go',
-            mod: 'text/plain',
-            sum: 'text/plain',
-            ts: 'text/typescript',
-            js: 'text/javascript',
-            json: 'application/json',
-            yaml: 'text/yaml',
-            yml: 'text/yaml',
-            toml: 'text/plain',
-            md: 'text/markdown',
-            txt: 'text/plain',
-            sh: 'text/x-shellscript',
-            dockerfile: 'text/plain',
-          }
-          const mime = mimeMap[ext.toLowerCase()] || 'text/plain'
-          res.setHeader('Content-Type', `${mime}; charset=utf-8`)
-          res.end(content)
-        }
-      })
-    },
-  }
 }

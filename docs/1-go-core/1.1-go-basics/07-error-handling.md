@@ -152,7 +152,7 @@ func main() {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/01-go-core/go-basics/errorhandling/](../../code-examples/01-go-core/go-basics/errorhandling/)
+> 💻 完整可运行代码：[code-examples/01-go-core/go-basics/errorhandling/](https://github.com/skyhe58/guide-go/tree/main/code-examples/01-go-core/go-basics/errorhandling/)
 
 ## 常见面试题
 

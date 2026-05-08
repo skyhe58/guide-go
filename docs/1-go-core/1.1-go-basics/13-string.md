@@ -143,7 +143,7 @@ func main() {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/01-go-core/go-basics/strings/](../../code-examples/01-go-core/go-basics/strings/)
+> 💻 完整可运行代码：[code-examples/01-go-core/go-basics/strings/](https://github.com/skyhe58/guide-go/tree/main/code-examples/01-go-core/go-basics/strings/)
 
 ## 常见面试题
 

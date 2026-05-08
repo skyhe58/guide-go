@@ -86,7 +86,7 @@ func main() {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/01-go-core/go-basics/operators/](../../code-examples/01-go-core/go-basics/operators/)
+> 💻 完整可运行代码：[code-examples/01-go-core/go-basics/operators/](https://github.com/skyhe58/guide-go/tree/main/code-examples/01-go-core/go-basics/operators/)
 
 ## 常见面试题
 

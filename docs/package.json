@@ -5,6 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "vitepress dev",
+    "dev:goland": "EDITOR_SCHEME=goland vitepress dev",
+    "dev:qoder": "EDITOR_SCHEME=qoder vitepress dev",
     "build": "vitepress build",
     "preview": "vitepress preview"
   },

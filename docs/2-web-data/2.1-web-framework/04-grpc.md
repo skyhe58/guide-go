@@ -190,7 +190,7 @@ Go 标准库没有内置 gRPC 支持，需要使用 `google.golang.org/grpc` 包
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/02-web-data/web-framework/grpc-examples/](../../code-examples/02-web-data/web-framework/grpc-examples/)
+> 💻 完整可运行代码：[code-examples/02-web-data/web-framework/grpc-examples/](https://github.com/skyhe58/guide-go/tree/main/code-examples/02-web-data/web-framework/grpc-examples/)
 > 🏷️ Demo 模式：Part A（直接运行，简化演示 gRPC 概念）
 
 ## 常见面试题

@@ -120,7 +120,7 @@ func main() {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/01-go-core/go-basics/datatypes/](../../code-examples/01-go-core/go-basics/datatypes/)
+> 💻 完整可运行代码：[code-examples/01-go-core/go-basics/datatypes/](https://github.com/skyhe58/guide-go/tree/main/code-examples/01-go-core/go-basics/datatypes/)
 
 ## 常见面试题
 

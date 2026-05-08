@@ -133,7 +133,7 @@ func main() {
 
 ## 代码示例
 
-> 💻 完整可运行代码：[code-examples/01-go-core/go-basics/variables/](../../code-examples/01-go-core/go-basics/variables/)
+> 💻 完整可运行代码：[code-examples/01-go-core/go-basics/variables/](https://github.com/skyhe58/guide-go/tree/main/code-examples/01-go-core/go-basics/variables/)
 
 ## 常见面试题
 
