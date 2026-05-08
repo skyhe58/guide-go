@@ -1,6 +1,11 @@
+import { resolve } from 'node:path'
 import { defineConfig } from 'vitepress'
 import { withMermaid } from 'vitepress-plugin-mermaid'
 import { sidebar } from './sidebar.mts'
+import { codeLinksPlugin, serveCodeExamples } from './plugins/code-link-rewrite'
+
+const isDev = process.env.NODE_ENV !== 'production'
+const projectRoot = resolve(__dirname, '../..')
 
 export default withMermaid(
   defineConfig({
@@ -104,9 +109,22 @@ export default withMermaid(
     // Markdown 配置
     markdown: {
       lineNumbers: true,
+      config: (md) => {
+        // 仅 dev 模式下重写代码链接为本地路径
+        if (isDev) {
+          codeLinksPlugin(md)
+        }
+      },
     },
 
     // 最后更新时间
     lastUpdated: true,
+
+    vite: {
+      plugins: [
+        // dev 模式下提供本地 code-examples 文件服务
+        ...(isDev ? [serveCodeExamples(projectRoot)] : []),
+      ],
+    },
   })
 )
